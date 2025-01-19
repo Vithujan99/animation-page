@@ -71,12 +71,15 @@ const Hero = () => {
         trigger: "#video-frame",
         start: "center center", // Start when the top of the element reaches the center of the viewport
         end: "bottom top", // End when the bottom of the element reaches the top of the viewport
-        scrub: true, // Makes the animation smooth based on scroll position
+        scrub: 0.5, // Makes the animation smooth based on scroll position
       },
     });
   });
   const getVideoSrc = (index) => {
     return `videos/hd/hero-${index}.mp4`;
+  };
+  const getLowVideoSrc = (index) => {
+    return `videos/hero-${index}.mp4`;
   };
   return (
     <div id="nexus" className="relative h-dvh w-screen overflow-x-hidden">
@@ -104,9 +107,10 @@ const Hero = () => {
               hover:scale-100 hover:opacity-100"
             >
               <video
-                src={getVideoSrc(upcominngVideoIndex)}
+                src={getLowVideoSrc(upcominngVideoIndex)}
                 loop
                 muted
+                onPause
                 id="current-video"
                 className="size-64 origin-center scale-150 object-cover object-center"
                 onLoadedData={handleVideoLoad}
