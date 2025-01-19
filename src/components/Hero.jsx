@@ -26,14 +26,13 @@ const Hero = () => {
     setHasClicked(true);
     setCurrentIndex(upcominngVideoIndex);
   };
-
   useEffect(() => {
     if (loadedVideos === totalVideos - 1) {
       setIsLoading(false);
     }
   }, [loadedVideos]);
+  //Klick Animation
 
-  // Optimize GSAP for Click Animation
   useGSAP(
     () => {
       if (hasClicked) {
@@ -61,8 +60,8 @@ const Hero = () => {
     },
     { dependencies: [currentIndex], revertOnUpdate: true }
   );
+  //Scroll Animation
 
-  // Optimize GSAP for Scroll Animation
   useGSAP(() => {
     gsap.set("#video-frame", {
       clipPath: "polygon(5% 0%, 72% 10%, 90% 80%, 20% 70%)",
@@ -72,17 +71,18 @@ const Hero = () => {
       ease: "power1.inOut",
       scrollTrigger: {
         trigger: "#video-frame",
-        start: "center center",
-        end: "bottom top",
-        scrub: 0.5, // Reduced scrub intensity for smoother performance
+        start: "center center", // Start when the top of the element reaches the center of the viewport
+        end: "bottom top", // End when the bottom of the element reaches the top of the viewport
+        scrub: 0.5, // Makes the animation smooth based on scroll position
       },
     });
   });
-
   const getVideoSrc = (index) => {
     return `videos/hd/hero-${index}.mp4`;
   };
-
+  const getLowVideoSrc = (index) => {
+    return `videos/hero-${index}.mp4`;
+  };
   return (
     <div id="nexus" className="relative h-dvh w-screen overflow-x-hidden">
       {isLoading && (
@@ -96,19 +96,23 @@ const Hero = () => {
       )}
       <div
         id="video-frame"
-        className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg bg-blue-75"
+        className="relative z-10 h-dvh w-screen oveflow-hidden rounded-lg bg-blue-75"
       >
         <div>
-          <div className="mask-clip-path absolute-center absolute z-50 size-64 cursor-pointer overflow-hidden rounded-lg">
+          <div
+            className="mask-clip-path absolute-center absolute 
+            z-50 size-64 cursor-pointer overflow-hidden rounded-lg"
+          >
             <div
               onClick={handleMiniVideoClick}
               className="origin-center scale-50 opacity-0 transition-all duration-500 ease-in 
               hover:scale-100 hover:opacity-100"
             >
               <video
-                src={getVideoSrc(upcominngVideoIndex)}
+                src={getLowVideoSrc(upcominngVideoIndex)}
                 loop
                 muted
+                onPause
                 id="current-video"
                 className="size-64 origin-center scale-150 object-cover object-center"
                 onLoadedData={handleVideoLoad}
@@ -161,6 +165,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
+      {/*Wenn gescrollt wird verschiebt sich mit dem HERO. Da Hero overflow hidden hat verschwindet teile des weißen textes, aber das Schwarze blebit stehen sodass ein coller effekt entsteht*/}
       <h1 className="special-font hero-heading absolute bottom-5 right-5 text-black">
         G<b>a</b>ming
       </h1>
