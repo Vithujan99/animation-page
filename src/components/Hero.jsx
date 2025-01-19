@@ -141,6 +141,13 @@ const Hero = () => {
                   : currentIndex - 1
                 : currentIndex
             )}
+            poster={getVideoPoster(
+              hasClicked
+                ? currentIndex - 1 === 0
+                  ? 4
+                  : currentIndex - 1
+                : currentIndex
+            )}
             autoPlay
             loop
             muted
