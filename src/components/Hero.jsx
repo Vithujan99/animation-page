@@ -76,7 +76,7 @@ const Hero = () => {
     });
   });
   const getVideoSrc = (index) => {
-    return `videos/hero-${index}.mp4`;
+    return `videos/hd/hero-${index}.mp4`;
   };
   return (
     <div id="nexus" className="relative h-dvh w-screen overflow-x-hidden">
