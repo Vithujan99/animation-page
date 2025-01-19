@@ -83,6 +83,9 @@ const Hero = () => {
   const getLowVideoSrc = (index) => {
     return `videos/hero-${index}.mp4`;
   };
+  const getVideoPoster = (index) => {
+    return `img/hero-${index}.webp`;
+  };
   return (
     <div id="nexus" className="relative h-dvh w-screen overflow-x-hidden">
       {isLoading && (
@@ -110,6 +113,7 @@ const Hero = () => {
             >
               <video
                 src={getLowVideoSrc(upcominngVideoIndex)}
+                poster={getVideoPoster(upcominngVideoIndex)}
                 loop
                 muted
                 onPause
@@ -122,6 +126,7 @@ const Hero = () => {
           <video
             ref={nextVideoRef}
             src={getVideoSrc(currentIndex)}
+            poster={getVideoPoster(currentIndex)}
             loop
             muted
             id="next-video"
